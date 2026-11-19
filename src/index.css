@@ -1,0 +1,338 @@
+@font-face {
+  font-family: "Valve";
+  src: url("./assets/fonts/ValveOccult-SemiBold.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ValvePulp";
+  src: url("./assets/fonts/ValvePulp-Bold.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "hahmlet";
+  src: url("./assets/fonts/hahmlet-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 64px;
+}
+
+.header img {
+  min-width: 360px;
+  max-width: 512px;
+  width: 30%;
+}
+
+.header p {
+  font-family: Valve;
+  align-items: center;
+  font-size: 18px;
+}
+
+.folderLayout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+.folderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.folderContainer h2 {
+  font-family: ValvePulp;
+  align-self: center;
+  transform: translateY(-48px);
+}
+
+.folderContainer p {
+  transform: translateY(-64px);
+  font-family: hahmlet;
+}
+
+.folder {
+  min-width: 48px;
+  max-width: 248px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdrop {
+  --top-gap: 18vh;
+  --bottom-gap: 24px;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  padding: var(--top-gap) 2.5vw var(--bottom-gap);
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.backdrop,
+.overlayContainer {
+  scrollbar-width: none; /* Firefox and current Chrome/Edge/Safari */
+}
+
+.backdrop::-webkit-scrollbar,
+.overlayContainer::-webkit-scrollbar {
+  display: none; /* older Chrome, Edge and Safari */
+}
+
+.overlayContainer {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sort {
+  position: sticky;
+  top: 0;
+  align-self: flex-end;
+  width: 20%;
+  min-width: 150px;
+  margin-bottom: 32px;
+  z-index: 20;
+  border-radius: 8px;
+  font-family: Valve;
+  font-size: 20px;
+}
+
+.overlayContainer ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.artShowcase img,
+.artShowcase video {
+  width: 100%;
+  height: 450px;
+  object-fit: contain;
+  display: block;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+  width: 100%;
+  align-items: start;
+}
+
+.artShowcase {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artShowcase li {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.artShowcase li:hover {
+  background-color: grey;
+}
+
+.art-container {
+  position: relative;
+  display: inline-block;
+}
+
+.description {
+  position: absolute;
+  left: calc(90% + 12px);
+  right: auto;
+  top: 50%;
+  transform: translateY(-50%);
+
+  box-sizing: border-box;
+  width: 200px;
+  padding: 10px;
+
+  background: #222;
+  color: white;
+  border: solid;
+  border-color: antiquewhite;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+
+  z-index: 10;
+}
+
+.description h2 {
+  font-family: ValvePulp;
+  font-size: 32px;
+}
+
+.description p {
+  font-family: Valve;
+}
+
+.description.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.description.flip-left {
+  left: auto;
+  right: calc(100% + 12px);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.85);
+  display: grid;
+  place-items: center;
+  cursor: zoom-out;
+}
+
+.artShowcase .lightbox img,
+.artShowcase .lightbox video {
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+}
+
+.thumb-video {
+  pointer-events: none;
+}
+
+.video-thumb {
+  position: relative;
+}
+
+.play-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.play-badge::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -50%);
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.art-container:hover .play-badge {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.column h2 {
+  margin-bottom: 4px;
+}
+
+@media (min-width: 1025px) {
+  .overlayContainer {
+    min-height: 60vh;
+    max-height: calc(100vh - var(--top-gap) - var(--bottom-gap));
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header p {
+    font-family: Valve;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  .folderLayout {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+  }
+
+  .backdrop {
+    --top-gap: 18vh;
+  }
+
+  .overlayContainer {
+    max-height: calc(100dvh - var(--top-gap) - var(--bottom-gap));
+    overflow-y: auto;
+  }
+
+  .overlayContainer ul {
+    grid-template-columns: 1fr;
+  }
+
+  .overlayContainer li img {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .description {
+    left: 50%;
+    top: calc(80% + 12px);
+    transform: translateX(-50%);
+  }
+
+  .sort {
+    width: 60%;
+    font-size: 16px;
+  }
+}
