@@ -15,4 +15,12 @@ export const folderList = [
     artStart: "74",
     artEnd: "78",
   },
+  {
+    id: "2",
+    month: "December",
+    theme: "Coming Soon",
+    year: "2026",
+    artStart: "74",
+    artEnd: "78",
+  },
 ];
